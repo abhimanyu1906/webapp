@@ -13,8 +13,10 @@ pipeline {
             		}
 		}
 		stage('deploy'){
+			sshagent(['ec2-user']) {
 			steps{
-				sh 'scp -i /var/lib/jenkins/DEV1.pem **/target/*.war ec2-user@172.31.30.172:8080:/root/ab/apache-tomcat-7.0.53/webapps'
+				sh 'scp -o  **/target/*.war ec2-user@172.31.30.172:8080:/root/ab/apache-tomcat-7.0.53/webapps'
+			}
 			}
 		}
 	}
