@@ -5,12 +5,6 @@ pipeline {
 		string(name: 'tomcat', defaultValue: '3.14.153.97', description: 'deployment')
 		}
 	stages{
-		stage('fetch'){
-			steps {
-				echo 'fetching code'
-				git 'https://github.com/abhimanyu1906/webapp/tree/development'
-			}
-		}
 		stage('Build'){
             		steps {
                 		sh 'mvn clean package'
