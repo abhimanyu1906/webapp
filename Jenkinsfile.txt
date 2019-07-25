@@ -17,7 +17,7 @@ pipeline {
 		}
 		stage('deploy'){
 			steps{
-				sh 'scp -i /root/ab/DEV1.pem **/target/*.war ec2-user@${params.tomcat}:/root/ab/apache-tomcat-7.0.53/webapp/'
+				sh 'scp -i /root/ab/DEV1.pem **/target/*.war ec2-user@${params.tomcat}:/root/ab/apache-tomcat-7.0.53/webapps/'
 			}
 		}
 	}
