@@ -1,0 +1,32 @@
+pipeline {
+	agent any
+	
+	parameters {
+		string(name: 'tomcat', defaultValue: '3.14.153.97', description: 'deployment')
+		}
+	stages{
+		stage('fetch'){
+			steps {
+				echo 'fetching code'
+				git 'https://github.com/abhimanyu1906/webapp/tree/development'
+			}
+		}
+		stage('Build'){
+            		steps {
+                		sh 'mvn clean package'
+            		}
+            		post {
+                		success {
+                    			echo 'Now Archiving...'
+                    			archiveArtifacts artifacts: '**/target/*.war'
+                		}
+            		}
+		}
+		stage('deploy'){
+			steps{
+				sh "scp -i /root/ab/DEV1.pem **/target/*.war ec2-user@${params.tomcat}:/root/ab/apache-tomcat-7.0.53/webapps"
+				echo 'deployed..haha'
+			}
+		}
+	}
+}
