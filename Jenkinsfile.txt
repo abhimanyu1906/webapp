@@ -2,7 +2,7 @@ pipeline {
 	agent any
 	
 	parameters {
-		string(name: 'tomcat', defaultValue: '3.14.153.97', description: 'deployment')
+		string(name: 'tomcat', defaultValue: '3.14.153.97:8080', description: 'deployment')
 		}
 	stages{
 		stage('Build'){
@@ -11,15 +11,13 @@ pipeline {
             		}
             		post {
                 		success {
-                    			echo 'Now Archiving...'
                     			archiveArtifacts artifacts: '**/target/*.war'
                 		}
             		}
 		}
 		stage('deploy'){
 			steps{
-				sh "scp -i /root/ab/DEV1.pem **/target/*.war ec2-user@${params.tomcat}:/root/ab/apache-tomcat-7.0.53/webapps"
-				echo 'deployed..haha'
+				sh 'scp -i /root/ab/DEV1.pem **/target/*.war ec2-user@${params.tomcat}:/root/ab/apache-tomcat-7.0.53/webapp/'
 			}
 		}
 	}
