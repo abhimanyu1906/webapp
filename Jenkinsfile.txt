@@ -13,8 +13,8 @@ pipeline {
             		}
 		}
 		stage('deploy') {
-			sshagent(['ec2-user']) {
 			steps {
+			sshagent(['ec2-user']) {
 				sh 'scp -o  **/target/*.war ec2-user@172.31.30.172:8080:/root/ab/apache-tomcat-7.0.53/webapps'
 			}
 			}
