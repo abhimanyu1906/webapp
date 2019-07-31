@@ -14,9 +14,7 @@ pipeline {
 		}
 		stage('deploy') {
 			steps {
-			sshagent(['ec2-user']) {
-				sh 'scp -o StrictHostKeyChecking=no ./target/*.war ec2-user@18.191.255.47:/opt/apache-tomcat-7.0.53/webapps'
-				}
+				sh 'scp -i /var/lib/jenkins/new.pem ./target/*.war ec2-user@18.191.255.47:/opt/apache-tomcat-7.0.53/webapps'
 			}
 		}
 	}
