@@ -14,7 +14,7 @@ pipeline {
 		}
 		stage('deploy') {
 			steps {
-				sh 'scp -i /var/lib/jenkins/workspace/ab/DEV1.pem ./target/*.war ec2-user@172.31.30.172:/root/apache-tomcat-7.0.53/webapps'
+				sh 'scp -i /opt/new.pem ./target/*.war ec2-user@:18.191.255.47/opt/apache-tomcat-7.0.53/webapps'
 			}
 		}
 	}
